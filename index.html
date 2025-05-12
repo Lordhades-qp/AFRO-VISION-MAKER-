@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFRO-VISION MAKER</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#6D28D9',secondary:'#A78BFA'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9fc;
+  width: 375px;
+  margin: 0 auto;
+  min-height: 762px;
+  position: relative;
+}
+.search-suggestions {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.search-input:focus + .search-suggestions {
+  display: block;
+}
+.trending-scroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.trending-scroll::-webkit-scrollbar {
+  display: none;
+}
+.category-scroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}
+.tutorial-card {
+  transition: transform 0.2s ease;
+}
+.tutorial-card:hover {
+  transform: translateY(-4px);
+}
+</style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="fixed top-0 w-full bg-white shadow-sm z-50 px-4 py-3 flex items-center justify-between">
+  <div class="flex items-center">
+    <h1 class="text-xl font-['Pacifico'] text-primary">AFRO-VISION MAKER</h1>
+  </div>
+  <div class="flex items-center space-x-3">
+    <button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 cursor-pointer">
+      <i class="ri-notification-3-line ri-lg text-gray-600"></i>
+    </button>
+    <a href="https://readdy.ai/home/260ec7ee-e50a-414c-8a53-fd92ec52eecf/02014518-9620-491d-b71e-4d5309223405" data-readdy="true" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 cursor-pointer">
+      <i class="ri-user-line ri-lg text-gray-600"></i>
+    </a>
+  </div>
+</nav>
+
+<!-- Search Bar -->
+<div class="fixed top-14 w-full bg-white z-40 px-4 py-3 shadow-sm">
+  <div class="relative">
+    <div class="flex items-center bg-gray-100 rounded-full px-3 py-2">
+      <a href="https://readdy.ai/home/260ec7ee-e50a-414c-8a53-fd92ec52eecf/fbd2f632-782f-46ea-a498-9f9d7119bb9a" data-readdy="true" class="w-6 h-6 flex items-center justify-center mr-2 cursor-pointer">
+        <i class="ri-home-5-line text-primary"></i>
+      </a>
+      <input type="text" placeholder="Rechercher des poses, paysages, styles..." class="bg-transparent border-none w-full text-sm focus:outline-none search-input">
+      <button class="w-8 h-8 flex items-center justify-center rounded-full bg-primary cursor-pointer ml-1">
+        <i class="ri-search-line ri-lg text-white"></i>
+      </button>
+    </div>
+    <div class="search-suggestions">
+      <div class="p-3 border-b border-gray-100">
+        <div class="text-xs font-medium text-gray-500 mb-2">Filtres rapides</div>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-700 cursor-pointer">Poses IA</span>
+          <span class="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-700 cursor-pointer">Créations d'auteurs</span>
+          <span class="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-700 cursor-pointer">Recherche web</span>
+        </div>
+      </div>
+      <div class="p-2">
+        <div class="py-2 px-3 hover:bg-gray-50 rounded cursor-pointer">
+          <div class="flex items-center">
+            <i class="ri-history-line ri-lg text-gray-400 mr-2"></i>
+            <span class="text-sm">Poses manga action</span>
+          </div>
+        </div>
+        <div class="py-2 px-3 hover:bg-gray-50 rounded cursor-pointer">
+          <div class="flex items-center">
+            <i class="ri-history-line ri-lg text-gray-400 mr-2"></i>
+            <span class="text-sm">Paysages africains</span>
+          </div>
+        </div>
+        <div class="py-2 px-3 hover:bg-gray-50 rounded cursor-pointer">
+          <div class="flex items-center">
+            <i class="ri-fire-line ri-lg text-orange-400 mr-2"></i>
+            <span class="text-sm">Poses dynamiques combat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main class="pt-32 pb-20">
+  <!-- API Status Indicator -->
+  <div class="mx-4 mb-4 px-3 py-2 bg-green-50 rounded-lg flex items-center">
+    <div class="w-6 h-6 flex items-center justify-center mr-2">
+      <i class="ri-robot-line text-green-500"></i>
+    </div>
+    <span class="text-xs text-green-700">IA connectée et prête à créer</span>
+    <div class="ml-auto">
+      <span class="px-2 py-0.5 bg-green-100 rounded text-xs text-green-700">ChatGPT</span>
+    </div>
+  </div>
+
+  <!-- Featured Banner -->
+  <div class="mx-4 mb-6 relative rounded-lg overflow-hidden shadow-sm">
+    <img src="https://readdy.ai/api/search-image?query=African%2520manga%2520artist%2520drawing%2520dynamic%2520poses%2520in%2520a%2520modern%2520studio%252C%2520digital%2520art%2520tools%252C%2520vibrant%2520colors%252C%2520professional%2520lighting%252C%2520creative%2520workspace%252C%2520detailed%2520illustration%2520style%252C%2520high%2520quality%2520render&width=375&height=180&seq=1&orientation=landscape" alt="Bannière AFRO-VISION" class="w-full h-44 object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-4">
+      <h2 class="text-white text-xl font-semibold mb-1">Créez des poses uniques</h2>
+      <p class="text-white/90 text-sm mb-3">Explorez notre éditeur de poses pour vos mangas et illustrations</p>
+      <a href="https://readdy.ai/home/260ec7ee-e50a-414c-8a53-fd92ec52eecf/fbd2f632-782f-46ea-a498-9f9d7119bb9a" data-readdy="true" class="bg-primary text-white px-4 py-2 rounded-button inline-block text-center text-sm font-medium cursor-pointer">
+        Commencer maintenant
+      </a>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="mb-6">
+    <div class="px-4 flex justify-between items-center mb-3">
+      <h2 class="text-lg font-semibold text-gray-800">Catégories</h2>
+    </div>
+    <div class="category-scroll px-4 flex space-x-4">
+      <div class="flex flex-col items-center w-16 cursor-pointer">
+        <div class="w-16 h-16 rounded-full overflow-hidden bg-purple-100 flex items-center justify-center mb-1">
+          <img src="https://readdy.ai/api/search-image?query=icon%252C%25203D%2520cartoon%252C%2520Manga%2520pose%2520reference%252C%2520the%2520icon%2520should%2520take%2520up%252070%2525%2520of%2520the%2520frame%252C%2520vibrant%2520colors%2520with%2520soft%2520gradients%252C%2520minimalist%2520design%252C%2520smooth%2520rounded%2520shapes%252C%2520subtle%2520shading%252C%2520no%2520outlines%252C%2520centered%2520composition%252C%2520isolated%2520on%2520white%2520background%252C%2520playful%2520and%2520friendly%2520aesthetic%252C%2520isometric%2520perspective%252C%2520high%2520detail%2520quality%252C%2520clean%2520and%2520modern%2520look%252C%2520single%2520object%2520focus&width=64&height=64&seq=2&orientation=squarish" alt="Poses" class="w-full h-full object-cover">
+        </div>
+        <span class="text-xs text-gray-700 text-center whitespace-nowrap overflow-hidden text-overflow-ellipsis">Poses</span>
+      </div>
+      <div class="flex flex-col items-center w-16 cursor-pointer">
+        <div class="w-16 h-16 rounded-full overflow-hidden bg-orange-100 flex items-center justify-center mb-1">
+          <img src="https://readdy.ai/api/search-image?query=icon%252C%25203D%2520cartoon%252C%2520African%2520savanna%2520landscape%252C%2520the%2520icon%2520should%2520take%2520up%252070%2525%2520of%2520the%2520frame%252C%2520vibrant%2520colors%2520with%2520soft%2520gradients%252C%2520minimalist%2520design%252C%2520smooth%2520rounded%2520shapes%252C%2520subtle%2520shading%252C%2520no%2520outlines%252C%2520centered%2520composition%252C%2520isolated%2520on%2520white%2520background%252C%2520playful%2520and%2520friendly%2520aesthetic%252C%2520isometric%2520perspective%252C%2520high%2520detail%2520quality%252C%2520clean%2520and%2520modern%2520look%252C%2520single%2520object%2520focus&width=64&height=64&seq=3&orientation=squarish" alt="Savane" class="w-full h-full object-cover">
+        </div>
+        <span class="text-xs text-gray-700 text-center whitespace-nowrap overflow-hidden text-overflow-ellipsis">Savane</span>
+      </div>
+      <div class="flex flex-col items-center w-16 cursor-pointer">
+        <div class="w-16 h-16 rounded-full overflow-hidden bg-green-100 flex items-center justify-center mb-1">
+          <img src="https://readdy.ai/api/search-image?query=icon%252C%25203D%2520cartoon%252C%2520African%2520rainforest%252C%2520the%2520icon%2520should%2520take%2520up%252070%2525%2520of%2520the%2520frame%252C%2520vibrant%2520colors%2520with%2520soft%2520gradients%252C%2520minimalist%2520design%252C%2520smooth%2520rounded%2520shapes%252C%2520subtle%2520shading%252C%2520no%2520outlines%252C%2520centered%2520composition%252C%2520isolated%2520on%2520white%2520background%252C%2520playful%2520and%2520friendly%2520aesthetic%252C%2520isometric%2520perspective%252C%2520high%2520detail%2520quality%252C%2520clean%2520and%2520modern%2520look%252C%2520single%2520object%2520focus&width=64&height=64&seq=4&orientation=squarish" alt="Forêt" class="w-full h-full object-cover">
+        </div>
+        <span class="text-xs text-gray-700 text-center whitespace-nowrap overflow-hidden text-overflow-ellipsis">Forêt</span>
+      </div>
+      <div class="flex flex-col items-center w-16 cursor-pointer">
+        <div class="w-16 h-16 rounded-full overflow-hidden bg-blue-100 flex items-center justify-center mb-1">
+          <img src="https://readdy.ai/api/search-image?query=icon%252C%25203D%2520cartoon%252C%2520Modern%2520African%2520city%2520skyline%252C%2520the%2520icon%2520should%2520take%2520up%252070%2525%2520of%2520the%2520frame%252C%2520vibrant%2520colors%2520with%2520soft%2520gradients%252C%2520minimalist%2520design%252C%2520smooth%2520rounded%2520shapes%252C%2520subtle%2520shading%252C%2520no%2520outlines%252C%2520centered%2520composition%252C%2520isolated%2520on%2520white%2520background%252C%2520playful%2520and%2520friendly%2520aesthetic%252C%2520isometric%2520perspective%252C%2520high%2520detail%2520quality%252C%2520clean%2520and%2520modern%2520look%252C%2520single%2520object%2520focus&width=64&height=64&seq=5&orientation=squarish" alt="Ville" class="w-full h-full object-cover">
+        </div>
+        <span class="text-xs text-gray-700 text-center whitespace-nowrap overflow-hidden text-overflow-ellipsis">Ville</span>
+      </div>
+      <div class="flex flex-col items-center w-16 cursor-pointer">
+        <div class="w-16 h-16 rounded-full overflow-hidden bg-red-100 flex items-center justify-center mb-1">
+          <img src="https://readdy.ai/api/search-image?query=icon%252C%25203D%2520cartoon%252C%2520Manga%2520characters%2520group%252C%2520the%2520icon%2520should%2520take%2520up%252070%2525%2520of%2520the%2520frame%252C%2520vibrant%2520colors%2520with%2520soft%2520gradients%252C%2520minimalist%2520design%252C%2520smooth%2520rounded%2520shapes%252C%2520subtle%2520shading%252C%2520no%2520outlines%252C%2520centered%2520composition%252C%2520isolated%2520on%2520white%2520background%252C%2520playful%2520and%2520friendly%2520aesthetic%252C%2520isometric%2520perspective%252C%2520high%2520detail%2520quality%252C%2520clean%2520and%2520modern%2520look%252C%2520single%2520object%2520focus&width=64&height=64&seq=6&orientation=squarish" alt="Personnages" class="w-full h-full object-cover">
+        </div>
+        <span class="text-xs text-gray-700 text-center whitespace-nowrap overflow-hidden text-overflow-ellipsis">Personnages</span>
+      </div>
+      <div class="flex flex-col items-center w-16 cursor-pointer">
+        <div class="w-16 h-16 rounded-full overflow-hidden bg-yellow-100 flex items-center justify-center mb-1">
+          <img src="https://readdy.ai/api/search-image?query=icon%252C%25203D%2520cartoon%252C%2520Storyboard%2520panels%252C%2520the%2520icon%2520should%2520take%2520up%252070%2525%2520of%2520the%2520frame%252C%2520vibrant%2520colors%2520with%2520soft%2520gradients%252C%2520minimalist%2520design%252C%2520smooth%2520rounded%2520shapes%252C%2520subtle%2520shading%252C%2520no%2520outlines%252C%2520centered%2520composition%252C%2520isolated%2520on%2520white%2520background%252C%2520playful%2520and%2520friendly%2520aesthetic%252C%2520isometric%2520perspective%252C%2520high%2520detail%2520quality%252C%2520clean%2520and%2520modern%2520look%252C%2520single%2520object%2520focus&width=64&height=64&seq=7&orientation=squarish" alt="Storyboard" class="w-full h-full object-cover">
+        </div>
+        <span class="text-xs text-gray-700 text-center whitespace-nowrap overflow-hidden text-overflow-ellipsis">Storyboard</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trending Poses -->
+  <div class="mb-6">
+    <div class="px-4 flex justify-between items-center mb-3">
+      <h2 class="text-lg font-semibold text-gray-800">Tendances</h2>
+      <a href="#" class="text-sm text-primary cursor-pointer">Voir tout</a>
+    </div>
+    <div class="trending-scroll px-4 flex space-x-3">
+      <div class="w-40 flex-shrink-0 bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-48 bg-gray-100 relative">
+          <img src="https://readdy.ai/api/search-image?query=manga%2520character%2520dynamic%2520fighting%2520pose%252C%2520action%2520stance%252C%2520detailed%2520line%2520art%252C%2520professional%2520reference%2520drawing%252C%2520clean%2520white%2520background%252C%2520high%2520contrast%252C%2520perfect%2520proportions%252C%2520martial%2520arts%2520position%252C%2520movement%2520lines%252C%2520energy%2520effect&width=160&height=192&seq=8&orientation=portrait" alt="Pose combat" class="h-full w-full object-cover">
+          <div class="absolute top-2 right-2 bg-white/80 backdrop-blur-sm rounded-full px-2 py-0.5">
+            <span class="text-xs font-medium text-primary">Populaire</span>
+          </div>
+        </div>
+        <div class="p-2">
+          <p class="text-sm font-medium text-gray-800">Combat dynamique</p>
+          <div class="flex items-center mt-1">
+            <div class="flex items-center">
+              <i class="ri-heart-fill text-red-500 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">842</span>
+            </div>
+            <div class="flex items-center ml-2">
+              <i class="ri-download-line text-gray-400 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">356</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-40 flex-shrink-0 bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-48 bg-gray-100 relative">
+          <img src="https://readdy.ai/api/search-image?query=manga%2520character%2520casual%2520standing%2520pose%252C%2520relaxed%2520stance%252C%2520detailed%2520line%2520art%252C%2520professional%2520reference%2520drawing%252C%2520clean%2520white%2520background%252C%2520high%2520contrast%252C%2520perfect%2520proportions%252C%2520everyday%2520position%252C%2520natural%2520posture%252C%2520simple%2520elegance&width=160&height=192&seq=9&orientation=portrait" alt="Pose décontractée" class="h-full w-full object-cover">
+          <div class="absolute top-2 right-2 bg-white/80 backdrop-blur-sm rounded-full px-2 py-0.5">
+            <span class="text-xs font-medium text-primary">Nouveau</span>
+          </div>
+        </div>
+        <div class="p-2">
+          <p class="text-sm font-medium text-gray-800">Pose décontractée</p>
+          <div class="flex items-center mt-1">
+            <div class="flex items-center">
+              <i class="ri-heart-fill text-red-500 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">624</span>
+            </div>
+            <div class="flex items-center ml-2">
+              <i class="ri-download-line text-gray-400 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">289</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-40 flex-shrink-0 bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-48 bg-gray-100 relative">
+          <img src="https://readdy.ai/api/search-image?query=manga%2520character%2520dramatic%2520running%2520pose%252C%2520movement%2520stance%252C%2520detailed%2520line%2520art%252C%2520professional%2520reference%2520drawing%252C%2520clean%2520white%2520background%252C%2520high%2520contrast%252C%2520perfect%2520proportions%252C%2520dynamic%2520position%252C%2520speed%2520lines%252C%2520action%2520effect&width=160&height=192&seq=10&orientation=portrait" alt="Pose course" class="h-full w-full object-cover">
+        </div>
+        <div class="p-2">
+          <p class="text-sm font-medium text-gray-800">Course rapide</p>
+          <div class="flex items-center mt-1">
+            <div class="flex items-center">
+              <i class="ri-heart-fill text-red-500 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">512</span>
+            </div>
+            <div class="flex items-center ml-2">
+              <i class="ri-download-line text-gray-400 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">247</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-40 flex-shrink-0 bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-48 bg-gray-100 relative">
+          <img src="https://readdy.ai/api/search-image?query=manga%2520character%2520emotional%2520sitting%2520pose%252C%2520expressive%2520stance%252C%2520detailed%2520line%2520art%252C%2520professional%2520reference%2520drawing%252C%2520clean%2520white%2520background%252C%2520high%2520contrast%252C%2520perfect%2520proportions%252C%2520contemplative%2520position%252C%2520natural%2520posture%252C%2520emotional%2520moment&width=160&height=192&seq=11&orientation=portrait" alt="Pose assise" class="h-full w-full object-cover">
+        </div>
+        <div class="p-2">
+          <p class="text-sm font-medium text-gray-800">Pose méditative</p>
+          <div class="flex items-center mt-1">
+            <div class="flex items-center">
+              <i class="ri-heart-fill text-red-500 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">478</span>
+            </div>
+            <div class="flex items-center ml-2">
+              <i class="ri-download-line text-gray-400 text-xs mr-1"></i>
+              <span class="text-xs text-gray-500">201</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- African Landscapes -->
+  <div class="mb-6">
+    <div class="px-4 flex justify-between items-center mb-3">
+      <h2 class="text-lg font-semibold text-gray-800">Paysages Africains</h2>
+      <a href="#" class="text-sm text-primary cursor-pointer">Voir tout</a>
+    </div>
+    <div class="px-4 grid grid-cols-2 gap-3">
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-28 bg-gray-100">
+          <img src="https://readdy.ai/api/search-image?query=African%2520savanna%2520landscape%2520storyboard%2520panel%252C%2520sunset%2520over%2520acacia%2520trees%252C%2520golden%2520hour%252C%2520silhouettes%2520of%2520wildlife%252C%2520professional%2520manga%2520reference%252C%2520clean%2520lines%252C%2520dramatic%2520lighting%252C%2520atmospheric%2520perspective%252C%2520cinematic%2520framing&width=160&height=112&seq=12&orientation=landscape" alt="Savane africaine" class="w-full h-full object-cover">
+        </div>
+        <div class="p-2">
+          <p class="text-sm font-medium text-gray-800">Savane au coucher du soleil</p>
+          <p class="text-xs text-gray-500">Storyboard</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-28 bg-gray-100">
+          <img src="https://readdy.ai/api/search-image?query=African%2520rainforest%2520storyboard%2520panel%252C%2520lush%2520jungle%2520canopy%252C%2520rays%2520of%2520light%2520through%2520trees%252C%2520misty%2520atmosphere%252C%2520professional%2520manga%2520reference%252C%2520clean%2520lines%252C%2520vibrant%2520greens%252C%2520atmospheric%2520perspective%252C%2520cinematic%2520framing&width=160&height=112&seq=13&orientation=landscape" alt="Forêt tropicale" class="w-full h-full object-cover">
+        </div>
+        <div class="p-2">
+          <p class="text-sm font-medium text-gray-800">Forêt tropicale</p>
+          <p class="text-xs text-gray-500">Storyboard</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-28 bg-gray-100">
+          <img src="https://readdy.ai/api/search-image?query=Modern%2520African%2520city%2520storyboard%2520panel%252C%2520Lagos%2520skyline%252C%2520contemporary%2520architecture%252C%2520busy%2520streets%252C%2520professional%2520manga%2520reference%252C%2520clean%2520lines%252C%2520urban%2520landscape%252C%2520atmospheric%2520perspective%252C%2520cinematic%2520framing&width=160&height=112&seq=14&orientation=landscape" alt="Ville moderne" class="w-full h-full object-cover">
+        </div>
+        <div class="p-2">
+          <p class="text-sm font-medium text-gray-800">Lagos moderne</p>
+          <p class="text-xs text-gray-500">Storyboard</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-28 bg-gray-100">
+          <img src="https://readdy.ai/api/search-image?query=African%2520village%2520storyboard%2520panel%252C%2520traditional%2520huts%252C%2520community%2520gathering%252C%2520daily%2520life%252C%2520professional%2520manga%2520reference%252C%2520clean%2520lines%252C%2520warm%2520colors%252C%2520atmospheric%2520perspective%252C%2520cinematic%2520framing&width=160&height=112&seq=15&orientation=landscape" alt="Village traditionnel" class="w-full h-full object-cover">
+        </div>
+        <div class="p-2">
+          <p class="text-sm font-medium text-gray-800">Village traditionnel</p>
+          <p class="text-xs text-gray-500">Storyboard</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tutorials -->
+  <div class="mb-6">
+    <div class="px-4 flex justify-between items-center mb-3">
+      <h2 class="text-lg font-semibold text-gray-800">Tutoriels</h2>
+      <a href="#" class="text-sm text-primary cursor-pointer">Voir tout</a>
+    </div>
+    <div class="px-4 space-y-3">
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer tutorial-card">
+        <div class="flex">
+          <div class="w-24 h-24 bg-gray-100 flex-shrink-0">
+            <img src="https://readdy.ai/api/search-image?query=manga%2520artist%2520teaching%2520how%2520to%2520draw%2520dynamic%2520poses%252C%2520instructional%2520illustration%252C%2520drawing%2520tutorial%252C%2520professional%2520setting%252C%2520educational%2520content%252C%2520art%2520demonstration%252C%2520clear%2520visual%2520guide&width=96&height=96&seq=16&orientation=squarish" alt="Tutoriel poses" class="w-full h-full object-cover">
+          </div>
+          <div class="p-3 flex-1">
+            <div class="flex items-center mb-1">
+              <span class="px-2 py-0.5 bg-primary/10 rounded text-xs text-primary font-medium">Débutant</span>
+              <span class="text-xs text-gray-500 ml-2">15 min</span>
+            </div>
+            <h3 class="text-sm font-medium text-gray-800 mb-1">Dessiner des poses dynamiques</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">Apprenez les bases pour créer des poses d'action expressives</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer tutorial-card">
+        <div class="flex">
+          <div class="w-24 h-24 bg-gray-100 flex-shrink-0">
+            <img src="https://readdy.ai/api/search-image?query=manga%2520artist%2520teaching%2520how%2520to%2520draw%2520facial%2520expressions%252C%2520instructional%2520illustration%252C%2520drawing%2520tutorial%252C%2520professional%2520setting%252C%2520educational%2520content%252C%2520art%2520demonstration%252C%2520clear%2520visual%2520guide&width=96&height=96&seq=17&orientation=squarish" alt="Tutoriel expressions" class="w-full h-full object-cover">
+          </div>
+          <div class="p-3 flex-1">
+            <div class="flex items-center mb-1">
+              <span class="px-2 py-0.5 bg-primary/10 rounded text-xs text-primary font-medium">Intermédiaire</span>
+              <span class="text-xs text-gray-500 ml-2">20 min</span>
+            </div>
+            <h3 class="text-sm font-medium text-gray-800 mb-1">Expressions faciales manga</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">Techniques pour créer des émotions convaincantes</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer tutorial-card">
+        <div class="flex">
+          <div class="w-24 h-24 bg-gray-100 flex-shrink-0">
+            <img src="https://readdy.ai/api/search-image?query=manga%2520artist%2520teaching%2520how%2520to%2520draw%2520African%2520landscapes%252C%2520instructional%2520illustration%252C%2520drawing%2520tutorial%252C%2520professional%2520setting%252C%2520educational%2520content%252C%2520art%2520demonstration%252C%2520clear%2520visual%2520guide&width=96&height=96&seq=18&orientation=squarish" alt="Tutoriel paysages" class="w-full h-full object-cover">
+          </div>
+          <div class="p-3 flex-1">
+            <div class="flex items-center mb-1">
+              <span class="px-2 py-0.5 bg-primary/10 rounded text-xs text-primary font-medium">Avancé</span>
+              <span class="text-xs text-gray-500 ml-2">25 min</span>
+            </div>
+            <h3 class="text-sm font-medium text-gray-800 mb-1">Paysages africains en manga</h3>
+            <p class="text-xs text-gray-500 line-clamp-2">Créez des décors authentiques pour vos histoires</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Creations -->
+  <div class="mb-6">
+    <div class="px-4 flex justify-between items-center mb-3">
+      <h2 class="text-lg font-semibold text-gray-800">Créations récentes</h2>
+      <a href="#" class="text-sm text-primary cursor-pointer">Voir tout</a>
+    </div>
+    <div class="px-4 grid grid-cols-2 gap-3">
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-36 bg-gray-100">
+          <img src="https://readdy.ai/api/search-image?query=manga%2520character%2520pose%252C%2520heroic%2520stance%252C%2520African%2520inspired%2520design%252C%2520detailed%2520line%2520art%252C%2520professional%2520reference%2520drawing%252C%2520clean%2520white%2520background%252C%2520high%2520contrast%252C%2520perfect%2520proportions&width=160&height=144&seq=19&orientation=portrait" alt="Héros manga" class="h-full w-full object-cover">
+        </div>
+        <div class="p-2">
+          <p class="text-xs text-gray-500">Modifié le 11 mai</p>
+          <p class="text-sm font-medium text-gray-800 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Héros Akachi</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-36 bg-gray-100">
+          <img src="https://readdy.ai/api/search-image?query=manga%2520character%2520pose%252C%2520female%2520warrior%2520stance%252C%2520African%2520inspired%2520design%252C%2520detailed%2520line%2520art%252C%2520professional%2520reference%2520drawing%252C%2520clean%2520white%2520background%252C%2520high%2520contrast%252C%2520perfect%2520proportions&width=160&height=144&seq=20&orientation=portrait" alt="Guerrière manga" class="h-full w-full object-cover">
+        </div>
+        <div class="p-2">
+          <p class="text-xs text-gray-500">Modifié le 10 mai</p>
+          <p class="text-sm font-medium text-gray-800 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Guerrière Amara</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-36 bg-gray-100">
+          <img src="https://readdy.ai/api/search-image?query=storyboard%2520panel%252C%2520African%2520city%2520scene%252C%2520manga%2520style%252C%2520detailed%2520line%2520art%252C%2520professional%2520reference%2520drawing%252C%2520clean%2520white%2520background%252C%2520high%2520contrast%252C%2520urban%2520landscape&width=160&height=144&seq=21&orientation=landscape" alt="Scène urbaine" class="h-full w-full object-cover">
+        </div>
+        <div class="p-2">
+          <p class="text-xs text-gray-500">Modifié le 9 mai</p>
+          <p class="text-sm font-medium text-gray-800 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Lagos 2050</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+        <div class="h-36 bg-gray-100">
+          <img src="https://readdy.ai/api/search-image?query=storyboard%2520panel%252C%2520savanna%2520sunset%2520scene%252C%2520manga%2520style%252C%2520detailed%2520line%2520art%252C%2520professional%2520reference%2520drawing%252C%2520clean%2520white%2520background%252C%2520high%2520contrast%252C%2520natural%2520landscape&width=160&height=144&seq=22&orientation=landscape" alt="Coucher de soleil" class="h-full w-full object-cover">
+        </div>
+        <div class="p-2">
+          <p class="text-xs text-gray-500">Modifié le 8 mai</p>
+          <p class="text-sm font-medium text-gray-800 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Savane dorée</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Usage Stats -->
+  <div class="mb-6 px-4">
+    <div class="bg-white rounded-lg shadow-sm p-4">
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">Statistiques d'utilisation</h2>
+      <div id="stats-chart" class="w-full h-48"></div>
+    </div>
+  </div>
+</main>
+
+<!-- Floating Action Button -->
+<a href="https://readdy.ai/home/260ec7ee-e50a-414c-8a53-fd92ec52eecf/fbd2f632-782f-46ea-a498-9f9d7119bb9a" data-readdy="true" class="fixed right-4 bottom-20 w-14 h-14 bg-primary rounded-full shadow-lg flex items-center justify-center cursor-pointer">
+  <i class="ri-edit-2-fill ri-xl text-white"></i>
+</a>
+
+<!-- Tab Bar -->
+<div class="fixed bottom-0 w-full bg-white border-t border-gray-200 px-2 py-1 grid grid-cols-5 z-50">
+  <a href="#" class="flex flex-col items-center justify-center py-1 cursor-pointer">
+    <div class="w-6 h-6 flex items-center justify-center">
+      <i class="ri-home-5-fill ri-lg text-primary"></i>
+    </div>
+    <span class="text-xs text-primary font-medium mt-0.5">Accueil</span>
+  </a>
+  <a href="#" class="flex flex-col items-center justify-center py-1 cursor-pointer">
+    <div class="w-6 h-6 flex items-center justify-center">
+      <i class="ri-gallery-line ri-lg text-gray-500"></i>
+    </div>
+    <span class="text-xs text-gray-500 mt-0.5">Galerie</span>
+  </a>
+  <a href="https://readdy.ai/home/260ec7ee-e50a-414c-8a53-fd92ec52eecf/fbd2f632-782f-46ea-a498-9f9d7119bb9a" data-readdy="true" class="flex flex-col items-center justify-center py-1 cursor-pointer">
+    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center -mt-3 shadow-md">
+      <i class="ri-add-line ri-xl text-white"></i>
+    </div>
+    <span class="text-xs text-gray-500 mt-0.5">Créer</span>
+  </a>
+  <a href="#" class="flex flex-col items-center justify-center py-1 cursor-pointer">
+    <div class="w-6 h-6 flex items-center justify-center">
+      <i class="ri-folder-line ri-lg text-gray-500"></i>
+    </div>
+    <span class="text-xs text-gray-500 mt-0.5">Dossiers</span>
+  </a>
+  <a href="#" class="flex flex-col items-center justify-center py-1 cursor-pointer">
+    <div class="w-6 h-6 flex items-center justify-center">
+      <i class="ri-settings-line ri-lg text-gray-500"></i>
+    </div>
+    <span class="text-xs text-gray-500 mt-0.5">Réglages</span>
+  </a>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize chart
+  const statsChart = echarts.init(document.getElementById('stats-chart'));
+  const option = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: [
+      {
+        type: 'category',
+        data: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+        axisTick: {
+          alignWithLabel: true
+        }
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    series: [
+      {
+        name: 'Poses créées',
+        type: 'bar',
+        barWidth: '60%',
+        data: [10, 15, 12, 8, 7, 11, 13],
+        itemStyle: {
+          color: '#6D28D9'
+        }
+      }
+    ]
+  };
+  statsChart.setOption(option);
+  
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    statsChart.resize();
+  });
+  
+  // Search functionality
+  const searchInput = document.querySelector('.search-input');
+  const searchSuggestions = document.querySelector('.search-suggestions');
+  
+  searchInput.addEventListener('focus', function() {
+    searchSuggestions.style.display = 'block';
+  });
+  
+  searchInput.addEventListener('blur', function() {
+    setTimeout(function() {
+      searchSuggestions.style.display = 'none';
+    }, 200);
+  });
+  
+  // Category scroll
+  const categoryScroll = document.querySelector('.category-scroll');
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+  
+  categoryScroll.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX - categoryScroll.offsetLeft;
+    scrollLeft = categoryScroll.scrollLeft;
+  });
+  
+  categoryScroll.addEventListener('mouseleave', () => {
+    isDown = false;
+  });
+  
+  categoryScroll.addEventListener('mouseup', () => {
+    isDown = false;
+  });
+  
+  categoryScroll.addEventListener('mousemove', (e) => {
+    if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - categoryScroll.offsetLeft;
+    const walk = (x - startX) * 2;
+    categoryScroll.scrollLeft = scrollLeft - walk;
+  });
+  
+  // Trending scroll
+  const trendingScroll = document.querySelector('.trending-scroll');
+  let isTrendingDown = false;
+  let trendingStartX;
+  let trendingScrollLeft;
+  
+  trendingScroll.addEventListener('mousedown', (e) => {
+    isTrendingDown = true;
+    trendingStartX = e.pageX - trendingScroll.offsetLeft;
+    trendingScrollLeft = trendingScroll.scrollLeft;
+  });
+  
+  trendingScroll.addEventListener('mouseleave', () => {
+    isTrendingDown = false;
+  });
+  
+  trendingScroll.addEventListener('mouseup', () => {
+    isTrendingDown = false;
+  });
+  
+  trendingScroll.addEventListener('mousemove', (e) => {
+    if(!isTrendingDown) return;
+    e.preventDefault();
+    const x = e.pageX - trendingScroll.offsetLeft;
+    const walk = (x - trendingStartX) * 2;
+    trendingScroll.scrollLeft = trendingScrollLeft - walk;
+  });
+});
+</script>
+</body>
+</html>
