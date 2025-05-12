@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "Introduction à mon site",
+    "content": "Ceci est l'article d'introduction à mon projet."
+  },
+  {
+    "id": 2,
+    "title": "Les fonctionnalités de mon site",
+    "content": "Voici une présentation des fonctionnalités principales."
+  },
+  {
+    "id": 3,
+    "title": "Contact",
+    "content": "Pour toute question, vous pouvez me contacter via le formulaire."
+  }
+]
