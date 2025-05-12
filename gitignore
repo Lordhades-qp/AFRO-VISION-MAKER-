@@ -1,0 +1,27 @@
+# Node modules
+/node_modules
+
+# Fichiers de compilation
+/dist
+/build
+
+# Dossiers temporaires
+/temp
+/.cache
+
+# Assets font custom (si tu utilises une version locale des fonts)
+assets/fonts/
+
+# Fichiers de logs
+*.log
+
+# Fichiers de configuration des IDE
+.idea/
+.vscode/
+
+# Environnement de développement
+.env
+
+# Fichiers lock (pour npm/yarn)
+package-lock.json
+yarn.lock
