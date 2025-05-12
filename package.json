@@ -4,12 +4,12 @@
   "description": "Un site web simple pour organiser des idées créatives.",
   "main": "index.html",
   "scripts": {
-    "start": "live-server",  // Si tu utilises live-server pour voir les changements en temps réel
-    "build": "webpack"       // Si tu utilises Webpack
+    "start": "live-server", 
+    "build": "webpack"      
   },
   "dependencies": {
-    "lodash": "^4.17.21",    // Exemple de dépendance
-    "jquery": "^3.6.0"       // Exemple de dépendance
+    "lodash": "^4.17.21",    
+    "jquery": "^3.6.0"       
   },
   "devDependencies": {
     "webpack": "^5.64.4",
