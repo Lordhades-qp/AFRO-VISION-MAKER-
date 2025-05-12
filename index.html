@@ -1,34 +1,389 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Mon Projet Web</title>
-
-  <!-- Lien vers le fichier CSS -->
-  <link rel="stylesheet" href="css/styles.css">
-
-  <!-- Favicon ou icônes -->
-  <link rel="icon" href="assets/icons/icon1.svg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFRO-VISION MAKER</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#6D28D9',secondary:'#A78BFA'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Poppins', sans-serif;
+background-color: #f9f9fc;
+width: 375px;
+margin: 0 auto;
+min-height: 762px;
+position: relative;
+}
+.editor-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+}
+.pose-control-point {
+width: 12px;
+height: 12px;
+background-color: rgba(109, 40, 217, 0.8);
+border-radius: 50%;
+position: absolute;
+transform: translate(-50%, -50%);
+box-shadow: 0 0 0 2px white;
+z-index: 10;
+}
+.pose-joint {
+width: 3px;
+background-color: rgba(109, 40, 217, 0.5);
+position: absolute;
+transform-origin: top center;
+z-index: 5;
+}
+</style>
 </head>
 <body>
-
-  <!-- Contenu principal de la page -->
-  <header>
-    <img src="assets/images/logo.png" alt="Logo">
-    <h1>Bienvenue sur Mon Site</h1>
-  </header>
-
-  <main>
-    <section>
-      <h2>Ma Galerie</h2>
-      <!-- Exemple de galerie d'images -->
-      <img src="assets/images/background.jpg" alt="Image de fond">
-    </section>
-  </main>
-
-  <!-- Liens vers les fichiers JavaScript -->
-  <script src="js/scripts.js"></script>
+<!-- Navigation Bar -->
+<nav class="fixed top-0 w-full bg-white shadow-sm z-50 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center">
+<h1 class="text-xl font-['Pacifico'] text-primary">logo</h1>
+</div>
+<div class="flex items-center space-x-3">
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 cursor-pointer">
+<i class="ri-search-line ri-lg text-gray-600"></i>
+</button>
+<a href="https://readdy.ai/home/260ec7ee-e50a-414c-8a53-fd92ec52eecf/02014518-9620-491d-b71e-4d5309223405" data-readdy="true" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 cursor-pointer">
+<i class="ri-user-line ri-lg text-gray-600"></i>
+</a>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-16 pb-20">
+<!-- Editor Area -->
+<div class="bg-white rounded-lg shadow-sm mx-4 mt-4 overflow-hidden">
+<div class="relative w-full h-[300px] bg-gray-50 border-b border-gray-200 flex items-center justify-center">
+<!-- Mannequin Canvas -->
+<div id="pose-canvas" class="relative w-[200px] h-[250px]">
+<!-- Head -->
+<div class="pose-control-point" style="top: 30px; left: 100px;" id="head"></div>
+<!-- Neck -->
+<div class="pose-joint" style="top: 30px; left: 100px; height: 20px;"></div>
+<div class="pose-control-point" style="top: 50px; left: 100px;" id="neck"></div>
+<!-- Torso -->
+<div class="pose-joint" style="top: 50px; left: 100px; height: 60px;"></div>
+<div class="pose-control-point" style="top: 110px; left: 100px;" id="torso"></div>
+<!-- Left Shoulder -->
+<div class="pose-joint" style="top: 50px; left: 100px; width: 30px; height: 3px;"></div>
+<div class="pose-control-point" style="top: 50px; left: 70px;" id="l-shoulder"></div>
+<!-- Left Elbow -->
+<div class="pose-joint" style="top: 50px; left: 70px; height: 40px;"></div>
+<div class="pose-control-point" style="top: 90px; left: 60px;" id="l-elbow"></div>
+<!-- Left Hand -->
+<div class="pose-joint" style="top: 90px; left: 60px; height: 40px;"></div>
+<div class="pose-control-point" style="top: 130px; left: 50px;" id="l-hand"></div>
+<!-- Right Shoulder -->
+<div class="pose-joint" style="top: 50px; left: 100px; width: 30px; height: 3px; transform: translateX(100%);"></div>
+<div class="pose-control-point" style="top: 50px; left: 130px;" id="r-shoulder"></div>
+<!-- Right Elbow -->
+<div class="pose-joint" style="top: 50px; left: 130px; height: 40px;"></div>
+<div class="pose-control-point" style="top: 90px; left: 140px;" id="r-elbow"></div>
+<!-- Right Hand -->
+<div class="pose-joint" style="top: 90px; left: 140px; height: 40px;"></div>
+<div class="pose-control-point" style="top: 130px; left: 150px;" id="r-hand"></div>
+<!-- Hips -->
+<div class="pose-joint" style="top: 110px; left: 100px; height: 30px;"></div>
+<div class="pose-control-point" style="top: 140px; left: 100px;" id="hips"></div>
+<!-- Left Hip -->
+<div class="pose-joint" style="top: 140px; left: 100px; width: 20px; height: 3px; transform: translateX(-100%);"></div>
+<div class="pose-control-point" style="top: 140px; left: 80px;" id="l-hip"></div>
+<!-- Left Knee -->
+<div class="pose-joint" style="top: 140px; left: 80px; height: 50px;"></div>
+<div class="pose-control-point" style="top: 190px; left: 80px;" id="l-knee"></div>
+<!-- Left Foot -->
+<div class="pose-joint" style="top: 190px; left: 80px; height: 50px;"></div>
+<div class="pose-control-point" style="top: 240px; left: 80px;" id="l-foot"></div>
+<!-- Right Hip -->
+<div class="pose-joint" style="top: 140px; left: 100px; width: 20px; height: 3px; transform: translateX(100%);"></div>
+<div class="pose-control-point" style="top: 140px; left: 120px;" id="r-hip"></div>
+<!-- Right Knee -->
+<div class="pose-joint" style="top: 140px; left: 120px; height: 50px;"></div>
+<div class="pose-control-point" style="top: 190px; left: 120px;" id="r-knee"></div>
+<!-- Right Foot -->
+<div class="pose-joint" style="top: 190px; left: 120px; height: 50px;"></div>
+<div class="pose-control-point" style="top: 240px; left: 120px;" id="r-foot"></div>
+</div>
+<!-- Grid Toggle Button -->
+<button class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-sm cursor-pointer">
+<i class="ri-grid-line ri-lg text-gray-600"></i>
+</button>
+</div>
+<!-- Control Tools -->
+<div class="p-4">
+<div class="flex justify-between mb-4">
+<button class="px-3 py-2 bg-primary text-white rounded-button shadow-sm flex items-center justify-center cursor-pointer">
+<i class="ri-save-line ri-lg mr-1"></i>
+<span>Sauvegarder</span>
+</button>
+<button class="px-3 py-2 bg-white border border-gray-200 rounded-button shadow-sm flex items-center justify-center cursor-pointer">
+<i class="ri-refresh-line ri-lg mr-1 text-gray-600"></i>
+<span class="text-gray-600">Réinitialiser</span>
+</button>
+</div>
+<!-- Rotation Control -->
+<div class="mb-4">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-medium text-gray-700">Rotation</span>
+<span class="text-xs text-gray-500">0°</span>
+</div>
+<input type="range" min="0" max="360" value="0" class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer" id="rotation-control">
+</div>
+<!-- Scale Control -->
+<div class="mb-4">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-medium text-gray-700">Échelle</span>
+<span class="text-xs text-gray-500">100%</span>
+</div>
+<input type="range" min="50" max="150" value="100" class="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer" id="scale-control">
+</div>
+</div>
+</div>
+<!-- Preset Poses -->
+<div class="mx-4 mt-6">
+<div class="flex justify-between items-center mb-3">
+<h2 class="text-lg font-semibold text-gray-800">Poses Populaires</h2>
+<a href="#" class="text-sm text-primary cursor-pointer">Voir tout</a>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+<div class="h-24 bg-gray-100 flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=manga%20character%20pose%2C%20action%20stance%2C%20dynamic%20movement%2C%20line%20art%2C%20minimalist%2C%20white%20background%2C%20reference%20drawing%2C%20clean%20lines&width=120&height=120&seq=1&orientation=squarish" alt="Pose d'action" class="h-full object-contain">
+</div>
+<div class="p-2">
+<p class="text-xs text-center text-gray-700 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Action</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+<div class="h-24 bg-gray-100 flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=manga%20character%20pose%2C%20casual%20standing%2C%20relaxed%20posture%2C%20line%20art%2C%20minimalist%2C%20white%20background%2C%20reference%20drawing%2C%20clean%20lines&width=120&height=120&seq=2&orientation=squarish" alt="Pose décontractée" class="h-full object-contain">
+</div>
+<div class="p-2">
+<p class="text-xs text-center text-gray-700 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Décontracté</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+<div class="h-24 bg-gray-100 flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=manga%20character%20pose%2C%20dramatic%20sitting%2C%20emotional%20expression%2C%20line%20art%2C%20minimalist%2C%20white%20background%2C%20reference%20drawing%2C%20clean%20lines&width=120&height=120&seq=3&orientation=squarish" alt="Pose assise" class="h-full object-contain">
+</div>
+<div class="p-2">
+<p class="text-xs text-center text-gray-700 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Assis</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Export Options -->
+<div class="mx-4 mt-6 bg-white rounded-lg shadow-sm p-4">
+<h2 class="text-lg font-semibold text-gray-800 mb-3">Exporter</h2>
+<div class="grid grid-cols-2 gap-3 mb-4">
+<button class="px-3 py-2 bg-white border border-gray-200 rounded-button shadow-sm flex items-center justify-center cursor-pointer">
+<i class="ri-download-line ri-lg mr-1 text-gray-600"></i>
+<span class="text-gray-600">PNG</span>
+</button>
+<button class="px-3 py-2 bg-white border border-gray-200 rounded-button shadow-sm flex items-center justify-center cursor-pointer">
+<i class="ri-file-line ri-lg mr-1 text-gray-600"></i>
+<span class="text-gray-600">JPG</span>
+</button>
+<button class="px-3 py-2 bg-white border border-gray-200 rounded-button shadow-sm flex items-center justify-center cursor-pointer">
+<i class="ri-layers-line ri-lg mr-1 text-gray-600"></i>
+<span class="text-gray-600">PSD</span>
+</button>
+<button class="px-3 py-2 bg-white border border-gray-200 rounded-button shadow-sm flex items-center justify-center cursor-pointer">
+<i class="ri-share-line ri-lg mr-1 text-gray-600"></i>
+<span class="text-gray-600">Partager</span>
+</button>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium text-gray-700">Envoyer vers</span>
+<div class="flex space-x-3">
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 cursor-pointer">
+<i class="ri-brush-line ri-lg text-gray-600"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 cursor-pointer">
+<i class="ri-image-edit-line ri-lg text-gray-600"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 cursor-pointer">
+<i class="ri-apps-line ri-lg text-gray-600"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- Recent Poses -->
+<div class="mx-4 mt-6 mb-6">
+<div class="flex justify-between items-center mb-3">
+<h2 class="text-lg font-semibold text-gray-800">Mes Poses Récentes</h2>
+<a href="#" class="text-sm text-primary cursor-pointer">Voir tout</a>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+<div class="h-36 bg-gray-100 flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=manga%20character%20pose%2C%20fighting%20stance%2C%20dynamic%20action%2C%20line%20art%2C%20minimalist%2C%20white%20background%2C%20reference%20drawing%2C%20clean%20lines&width=160&height=180&seq=4&orientation=portrait" alt="Pose de combat" class="h-full object-contain">
+</div>
+<div class="p-2">
+<p class="text-xs text-gray-500">Modifié le 11 mai</p>
+<p class="text-sm font-medium text-gray-700 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Combat #1</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer">
+<div class="h-36 bg-gray-100 flex items-center justify-center">
+<img src="https://readdy.ai/api/search-image?query=manga%20character%20pose%2C%20running%20motion%2C%20dynamic%20movement%2C%20line%20art%2C%20minimalist%2C%20white%20background%2C%20reference%20drawing%2C%20clean%20lines&width=160&height=180&seq=5&orientation=portrait" alt="Pose de course" class="h-full object-contain">
+</div>
+<div class="p-2">
+<p class="text-xs text-gray-500">Modifié le 10 mai</p>
+<p class="text-sm font-medium text-gray-700 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Course</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Tab Bar -->
+<div class="fixed bottom-0 w-full bg-white border-t border-gray-200 px-2 py-1 grid grid-cols-5 z-50">
+<a href="#" class="flex flex-col items-center justify-center py-1 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-home-5-line ri-lg text-primary"></i>
+</div>
+<span class="text-xs text-primary font-medium mt-0.5">Accueil</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center py-1 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-gallery-line ri-lg text-gray-500"></i>
+</div>
+<span class="text-xs text-gray-500 mt-0.5">Galerie</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center py-1 cursor-pointer">
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center -mt-3 shadow-md">
+<i class="ri-add-line ri-xl text-white"></i>
+</div>
+<span class="text-xs text-gray-500 mt-0.5">Créer</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center py-1 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-folder-line ri-lg text-gray-500"></i>
+</div>
+<span class="text-xs text-gray-500 mt-0.5">Dossiers</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center py-1 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-settings-line ri-lg text-gray-500"></i>
+</div>
+<span class="text-xs text-gray-500 mt-0.5">Réglages</span>
+</a>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Make control points draggable
+const controlPoints = document.querySelectorAll('.pose-control-point');
+let activePoint = null;
+controlPoints.forEach(point => {
+point.addEventListener('mousedown', function(e) {
+activePoint = point;
+e.preventDefault();
+});
+point.addEventListener('touchstart', function(e) {
+activePoint = point;
+e.preventDefault();
+});
+});
+document.addEventListener('mousemove', function(e) {
+if (activePoint) {
+const canvas = document.getElementById('pose-canvas');
+const canvasRect = canvas.getBoundingClientRect();
+let x = e.clientX - canvasRect.left;
+let y = e.clientY - canvasRect.top;
+// Constrain to canvas
+x = Math.max(0, Math.min(x, canvasRect.width));
+y = Math.max(0, Math.min(y, canvasRect.height));
+activePoint.style.left = x + 'px';
+activePoint.style.top = y + 'px';
+updateJoints();
+}
+});
+document.addEventListener('touchmove', function(e) {
+if (activePoint && e.touches.length > 0) {
+const canvas = document.getElementById('pose-canvas');
+const canvasRect = canvas.getBoundingClientRect();
+let x = e.touches[0].clientX - canvasRect.left;
+let y = e.touches[0].clientY - canvasRect.top;
+// Constrain to canvas
+x = Math.max(0, Math.min(x, canvasRect.width));
+y = Math.max(0, Math.min(y, canvasRect.height));
+activePoint.style.left = x + 'px';
+activePoint.style.top = y + 'px';
+updateJoints();
+e.preventDefault();
+}
+});
+document.addEventListener('mouseup', function() {
+activePoint = null;
+});
+document.addEventListener('touchend', function() {
+activePoint = null;
+});
+function updateJoints() {
+// Update all joints based on control points
+const joints = document.querySelectorAll('.pose-joint');
+joints.forEach(joint => {
+const parentId = joint.previousElementSibling ? joint.previousElementSibling.id : null;
+const childId = joint.nextElementSibling ? joint.nextElementSibling.id : null;
+if (parentId && childId) {
+const parent = document.getElementById(parentId);
+const child = document.getElementById(childId);
+if (parent && child) {
+const parentRect = parent.getBoundingClientRect();
+const childRect = child.getBoundingClientRect();
+const canvasRect = document.getElementById('pose-canvas').getBoundingClientRect();
+// Get positions relative to canvas
+const parentX = parseFloat(parent.style.left);
+const parentY = parseFloat(parent.style.top);
+const childX = parseFloat(child.style.left);
+const childY = parseFloat(child.style.top);
+// Calculate distance and angle
+const dx = childX - parentX;
+const dy = childY - parentY;
+const length = Math.sqrt(dx * dx + dy * dy);
+const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+// Update joint
+joint.style.width = length + 'px';
+joint.style.height = '3px';
+joint.style.transform = `rotate(${angle}deg)`;
+joint.style.transformOrigin = '0 0';
+joint.style.left = parentX + 'px';
+joint.style.top = parentY + 'px';
+}
+}
+});
+}
+// Rotation control
+const rotationControl = document.getElementById('rotation-control');
+rotationControl.addEventListener('input', function() {
+const canvas = document.getElementById('pose-canvas');
+const value = rotationControl.value;
+canvas.style.transform = `rotate(${value}deg)`;
+// Update display value
+rotationControl.previousElementSibling.querySelector('span').textContent = `${value}°`;
+});
+// Scale control
+const scaleControl = document.getElementById('scale-control');
+scaleControl.addEventListener('input', function() {
+const canvas = document.getElementById('pose-canvas');
+const value = scaleControl.value / 100;
+canvas.style.transform = `${canvas.style.transform.replace(/scale\([^)]*\)/, '')} scale(${value})`;
+// Update display value
+scaleControl.previousElementSibling.querySelector('span').textContent = `${scaleControl.value}%`;
+});
+// Initialize joints
+updateJoints();
+});
+</script>
 </body>
-</html>
+  </html>
