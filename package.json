@@ -1,1 +1,21 @@
-
+{
+  "name": "mon-projet-web",
+  "version": "1.0.0",
+  "description": "Un site web simple pour organiser des idées créatives.",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server",  // Si tu utilises live-server pour voir les changements en temps réel
+    "build": "webpack"       // Si tu utilises Webpack
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",    // Exemple de dépendance
+    "jquery": "^3.6.0"       // Exemple de dépendance
+  },
+  "devDependencies": {
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
+  },
+  "keywords": ["web", "html", "css", "javascript"],
+  "author": "Ton Nom",
+  "license": "MIT"
+}
